@@ -1,0 +1,51 @@
+Selenium Java Framework for salesforce
+Maven project
+src
+│── main
+│   ├── java
+│   │   ├── com
+│   │   │   ├── framework
+│   │   │   │   ├── selenium.api
+│   │   │   │   │   ├── base
+│   │   │   │   │   │   ├── DriverInstance.java
+│   │   │   │   │   │   ├── SeleniumBase.java
+│   │   │   │   │   │   ├── WebDriverManager.java  # NEW: Handles driver setup dynamically
+│   │   │   │   │   ├── design
+│   │   │   │   │   │   ├── Browser.java
+│   │   │   │   │   │   ├── Element.java
+│   │   │   │   │   │   ├── Locators.java
+│   │   │   │   ├── testng.api.base
+│   │   │   │   │   ├── ProjectSpecificMethods.java
+│   │   │   │   │   ├── RetryEngine.java
+│   │   │   │   ├── utils
+│   │   │   │   │   ├── DataLibrary.java
+│   │   │   │   │   ├── Reporter.java
+│   │   │   │   │   ├── ExcelUtils.java  # NEW: Handles Excel data-driven tests
+│   │   │   │   │   ├── JsonUtils.java   # NEW: Parses JSON data
+│   │   │   │   │   ├── WaitHelper.java  # NEW: Manages explicit and fluent waits
+│   │   │   │   ├── listeners
+│   │   │   │   │   ├── RetryAnalyzer.java
+│   │   │   │   │   ├── TestListener.java
+│   │   │   ├── salesforce
+│   │   │   │   ├── pages
+│   │   │   │   ├── testcases
+│   │   │   ├── config  # NEW: Configuration package
+│   │   │   │   ├── ConfigManager.java  # Reads config.properties
+│   │   │   │   ├── Constants.java      # Stores global constants
+│   │   │   │   ├── Environment.java    # Handles different test environments
+│   │   ├── resources
+│   │   │   ├── config.properties
+│   │   │   ├── extent-config.xml
+│── test
+│   ├── java
+│   │   ├── com
+│   │   │   ├── salesforce.tests  # NEW: Test classes organized separately
+│   │   │   │   ├── LoginTests.java
+│   │   │   │   ├── DashboardTests.java
+│   │   │   │   ├── PaymentTests.java
+│── .github
+│   ├── workflows
+│   │   ├── selenium-tests.yml  # CI/CD Pipeline for GitHub Actions
+│── pom.xml
+│── README.md
+│── .gitignore
