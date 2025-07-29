@@ -1,0 +1,6 @@
+### Why private static final ThreadLocal<RemoteWebDriver> remoteWebDriver = new ThreadLocal<>(); ###
+
+Analogy
+Think of ThreadLocal as a mailbox (the object) and each thread is a different person with their own key.
+static final means there is only one mailbox (shared, fixed).
+But each person (thread) can put their own letter (value) inside — independent of others.
