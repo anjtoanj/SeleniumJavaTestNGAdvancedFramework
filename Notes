@@ -17,3 +17,11 @@ Helps make browser selection dynamic and clean
 ##Element.java
 Abstraction for working with web elements
 Might wrap native Selenium actions with better error handling, logging, wait conditions
+
+## protected Actions act; -> SeleniumBase class
+Actions is a Selenium class used to simulate complex user interactions, such as:
+Mouse hover
+Drag and drop
+Right-click (context click)
+Double-click
+Keyboard actions (Ctrl, Shift, etc.)

@@ -20,15 +20,6 @@ public interface Browser {
      */
     public void startApp(String url, boolean headless);
 
-    /**
-     * This method will launch the Any browser and
-     * maximise the browser and set the wait for 30 seconds
-     * and load the url
-     * @param browser - This will load the specified browser
-     * @param url - This will load the specified url
-     * @throws MalformedURLException
-     */
-    public void startApp(String browser, boolean headless, String url);
 
     /**
      * This method will locate the element using any given locator

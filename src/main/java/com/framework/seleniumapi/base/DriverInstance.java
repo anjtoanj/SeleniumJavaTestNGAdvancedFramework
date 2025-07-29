@@ -19,6 +19,7 @@ public class DriverInstance {
         private static final ThreadLocal<WebDriverWait> wait = new ThreadLocal<>();
 
         public void setDriver(String browser, boolean headless){
+
                 switch(browser){
                         case "chrome" :
                                 WebDriverManager.chromedriver().setup();
@@ -38,14 +39,14 @@ public class DriverInstance {
                         default:
                                 break;
                 }
+
         }
 
         public RemoteWebDriver getDriver(){
                 return remoteWebDriver.get();
         }
-
         public void setWait(){
-                wait.set(new WebDriverWait(getDriver(), Duration.ofSeconds(30)));
+                wait.set(new WebDriverWait(remoteWebDriver.get(), Duration.ofSeconds(30)));
         }
 
         public  WebDriverWait getWait(){
