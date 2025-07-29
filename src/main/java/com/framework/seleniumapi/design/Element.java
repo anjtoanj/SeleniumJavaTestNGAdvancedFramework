@@ -39,6 +39,14 @@ public interface Element {
     String getElementText(WebElement ele);
 
     /**
+     * This method will  type the value in the given text field and click Enter
+     * @param ele   - The Webelement (text field) in which the data to be entered
+     * @param data  - The data to be sent to the webelement
+     * @see locateElement method in Browser Class
+     * @throws ElementNotInteractable,IllegalArgumentException(throws if keysToSend is null)
+     */
+    void typeAndEnter(WebElement ele, String data);
+    /**
      * This method will select the drop down visible text
      * @param ele   - The Webelement (dropdown) to be selected
      * @param value The value to be selected (visibletext) from the dropdown

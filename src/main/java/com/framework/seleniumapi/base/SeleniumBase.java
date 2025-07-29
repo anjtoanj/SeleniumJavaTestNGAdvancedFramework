@@ -3,11 +3,11 @@ package com.framework.seleniumapi.base;
 import com.framework.seleniumapi.design.Browser;
 import com.framework.seleniumapi.design.Element;
 import com.framework.seleniumapi.design.Locators;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 
 import javax.swing.*;
 import java.net.MalformedURLException;
@@ -120,47 +120,116 @@ public class SeleniumBase extends DriverInstance implements Browser, Element {
 
     @Override
     public boolean verifyUrl(String url) {
+        if (getDriver().getCurrentUrl().equals(url)) {
+          //  reportStep("The url: " + url + " matched successfully", "info");
+            return true;
+        } else {
+         //   reportStep("The url: " + url + " not matched", "fail");
+        }
         return false;
     }
 
     @Override
     public boolean verifyTitle(String title) {
+        if(getDriver().getTitle().equals(title)){
+            return true;
+        }else {
+            System.out.println("title locator not valid");
+        }
         return false;
     }
 
     @Override
     public void close() {
-
+        try {
+            getDriver().close();
+            //reportStep("Browser is closed", "info", false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //reportStep("Browser cannot be closed " + e.getMessage(), "fail", false);
+        }
     }
 
     @Override
     public void quit() {
-
+        try {
+            getDriver().quit();
+            //reportStep("Browser is closed", "info", false);
+        } catch (Exception e) {
+           // reportStep("Browser cannot be closed " + e.getMessage(), "fail", false);
+        }
     }
 
     @Override
     public void click(WebElement ele) {
+        try{
+            ele.isDisplayed();
+            getWait().until(ExpectedConditions.elementToBeClickable(ele));
 
+        } catch (NoSuchElementException e)  {
+
+            //reportStep("The Element " + ele + " is not found", "fail");
+        }
     }
 
     @Override
     public void clear(WebElement ele) {
-
+        try {
+            ele.clear();
+        } catch (ElementNotInteractableException e) {
+           // reportStep("The field is not Interactable \n" + e.getMessage(), "fail");
+        }
     }
 
     @Override
     public void clearAndType(WebElement ele, String data) {
+        try {
+            getWait().until(ExpectedConditions.visibilityOf(ele));
+            ele.clear();
+            ele.sendKeys("", "", data);
+        } catch (ElementNotInteractableException e) {
+          //  reportStep("The Element " + ele + " is not Interactable \n" + e.getMessage(), "fail");
+        } catch (WebDriverException e) {
+          //      reportStep("The Element " + ele + " did not allow to clear / type \n" + e.getMessage(), "fail");
+        }
+    }
+
+    @Override
+    public void typeAndEnter(WebElement ele, String data) {
+        try {
+            getWait().until(ExpectedConditions.visibilityOf(ele));
+            ele.clear();
+            ele.sendKeys("", "", data, Keys.ENTER);
+        } catch (ElementNotInteractableException e) {
+           // reportStep("The Element " + ele + " is not Interactable \n" + e.getMessage(), "fail");
+        } catch (WebDriverException e) {
+           // reportStep("The Element " + ele + " is not Interactable \n" + e.getMessage(), "fail");
+        }
 
     }
 
     @Override
     public String getElementText(WebElement ele) {
-        return "";
+        try{
+            String text = ele.getText();
+            return text;
+        }catch( Exception e){
+
+        }
+        return null;
     }
 
     @Override
     public void selectDropDownUsingText(WebElement ele, String value) {
+        try{
 
+            Select sel = new Select(ele);
+            sel.selectByVisibleText(value);
+
+        } catch (Exception e) {
+
+            //reportStep("Not able to select the drop down with text \n" + value, "fail");
+        }
     }
 
     @Override
@@ -170,16 +239,43 @@ public class SeleniumBase extends DriverInstance implements Browser, Element {
 
     @Override
     public boolean verifyDisplayed(WebElement ele) {
+        try {
+            if (ele.isDisplayed()) {
+                return true;
+            } else {
+             //   reportStep("The element " + ele + " is not visible", "warnings");
+            }
+        } catch (WebDriverException e) {
+           // reportStep("WebDriverException : \n" + e.getMessage(), "fail");
+        }
         return false;
     }
 
     @Override
     public boolean verifyEnabled(WebElement ele) {
+        try {
+            if (ele.isEnabled()) {
+                return true;
+            } else {
+               // reportStep("The element " + ele + " is not Enabled", "warning");
+            }
+        } catch (WebDriverException e) {
+           // reportStep("WebDriverException : \n" + e.getMessage(), "fail");
+        }
         return false;
     }
 
     @Override
     public boolean verifySelected(WebElement ele) {
+        try {
+            if (ele.isSelected()) {
+                return true;
+            } else {
+              //  reportStep("The element " + ele + " is not selected", "warning");
+            }
+        } catch (WebDriverException e) {
+         //   reportStep("WebDriverException : \n" + e.getMessage(), "fail");
+        }
         return false;
     }
 }

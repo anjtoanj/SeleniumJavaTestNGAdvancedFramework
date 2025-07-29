@@ -31,3 +31,26 @@ Keyboard actions (Ctrl, Shift, etc.)
   ChromeDriverService service = new ChromeDriverService.Builder()
                 .withSilent(true) // suppresses logs
                 .build();
+
+#Different types of Exceptions
+NoSuchElementException-	Thrown when the element could not be found using the given locator.
+TimeoutException-	Thrown when a command (like wait) exceeds the configured timeout.
+ElementNotInteractableException-	Element is present but not interactable (e.g., hidden or disabled).
+StaleElementReferenceException-	Element is no longer attached to the DOM (page refreshed or changed).
+WebDriverException-	A generic exception for all WebDriver-related errors (often browser crashes or session loss).
+NoSuchWindowException-	Tried to switch to a window that doesn't exist.
+NoSuchFrameException-	Tried to switch to a frame that doesn’t exist.
+SessionNotCreatedException-	Browser session couldn’t be created (e.g., driver-browser version mismatch).
+InvalidSessionIdException-	WebDriver session is not active or has ended.
+ElementClickInterceptedException-	Click is intercepted by another element (e.g., popup, overlay).
+ElementNotSelectableException	-Tried to select an unselectable element (like an option not in a <select>).
+MoveTargetOutOfBoundsException	-Tried to move the mouse to an element outside the viewport.
+InvalidSelectorException-	Locator strategy is incorrect (e.g., malformed XPath or CSS).
+JavascriptException-	JavaScript execution failed when using JavascriptExecutor.
+InvalidElementStateException-	Action performed on an element that's not in the right state (e.g., typing into a read-only field).
+Exception Name	Description
+WebDriverException	-Generic error — most driver-related or system-level failures fall here.
+UnsupportedCommandException-	Command is not supported by the current driver.
+UnreachableBrowserException	-WebDriver can’t communicate with the browser (e.g., browser crashed).
+
+
