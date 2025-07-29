@@ -3,10 +3,13 @@ package com.framework.seleniumapi.base;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.groovy.json.internal.Chr;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxDriverService;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerDriverService;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,6 +26,7 @@ public class DriverInstance {
                 switch(browser){
                         case "chrome" :
                                 WebDriverManager.chromedriver().setup();
+                                ChromeDriverService serviceC = new ChromeDriverService.Builder().withSilent(true).build();// suppress ChromeDriver logs for clean code
                                 ChromeOptions optionC = new ChromeOptions();
                                 remoteWebDriver.set(new ChromeDriver(optionC));
                                 break;
@@ -33,6 +37,7 @@ public class DriverInstance {
                                 break;
                         case "ie" :
                                 WebDriverManager.iedriver().setup();
+                                InternetExplorerDriverService serviceI = new InternetExplorerDriverService.Builder().withSilent(true).build();// suppress ChromeDriver logs for clean code
                                 InternetExplorerOptions optionIE = new InternetExplorerOptions();
                                 remoteWebDriver.set(new InternetExplorerDriver(optionIE));
                                 break;

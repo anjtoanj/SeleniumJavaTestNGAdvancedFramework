@@ -18,7 +18,7 @@ public interface Browser {
      * @param url - This will load the specified url  `
      * @throws MalformedURLException
      */
-    public void startApp(String url, boolean headless);
+    public void startApp(String url, boolean headless, String browser);
 
 
     /**

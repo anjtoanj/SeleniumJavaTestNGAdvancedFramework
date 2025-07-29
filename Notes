@@ -25,3 +25,9 @@ Drag and drop
 Right-click (context click)
 Double-click
 Keyboard actions (Ctrl, Shift, etc.)
+
+#Measures to keep test output clean and readable
+// Suppress ChromeDriver logs
+  ChromeDriverService service = new ChromeDriverService.Builder()
+                .withSilent(true) // suppresses logs
+                .build();
