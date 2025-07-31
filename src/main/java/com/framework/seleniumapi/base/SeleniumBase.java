@@ -171,6 +171,44 @@ public class SeleniumBase extends DriverInstance implements Browser, Element {
 
             //reportStep("The Element " + ele + " is not found", "fail");
         }
+        String text = "";
+        try {
+            try {
+                Thread.sleep(500);
+                getWait().until(ExpectedConditions.elementToBeClickable(ele));
+                text = ele.getText();
+                if (ele.isEnabled()) {
+                    ele.click();
+                } else {
+                    getDriver().executeScript("arguments[0].click()", ele);
+                }
+            } catch (Exception e) {
+                boolean bFound = false;
+                int totalTime = 0;
+                while (!bFound && totalTime < 10000) {
+                    try {
+                        Thread.sleep(500);
+                        ele.click();
+                        bFound = true;
+
+                    } catch (Exception e1) {
+                        bFound = false;
+                    }
+                    totalTime = totalTime + 500;
+                }
+                if (!bFound)
+                    ele.click();
+            }
+        } catch (StaleElementReferenceException e) {
+            System.err.println(e);
+      //      reportStep("The Element " + text + " could not be clicked due to:" + e.getMessage(), "fail");
+        } catch (WebDriverException e) {
+            System.err.println(e);
+       //     reportStep("The Element " + ele + " could not be clicked due to: " + e.getMessage(), "fail");
+        } catch (Exception e) {
+            System.err.println(e);
+       //     reportStep("The Element " + ele + " could not be clicked due to: " + e.getMessage(), "fail");
+        }
     }
 
     @Override
