@@ -44,7 +44,7 @@ public interface Browser {
      * @param locValue - The locator value by which the element to be found
      * @return A list of all WebElements, or an empty list if nothing matches.
      */
-    public List<WebElement> locateElements(Locators locatorType, String value);
+   // public List<WebElement> locateElements(Locators locatorType, String value);
 
     /**
      * This method will switch to the Alert

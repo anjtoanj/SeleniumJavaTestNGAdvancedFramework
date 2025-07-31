@@ -88,10 +88,11 @@ public class SeleniumBase extends DriverInstance implements Browser, Element {
         return null;
     }
 
-    @Override
-    public List<WebElement> locateElements(Locators locatorType, String value) {
-        return List.of();
-    }
+//    @Override
+//    public List<WebElement> locateElements(Locators locatorType, String value) {
+//        return List.of();
+//    }
+
 
     @Override
     public void switchToAlert() {
