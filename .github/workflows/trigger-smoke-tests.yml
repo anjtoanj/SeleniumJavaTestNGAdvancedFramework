@@ -14,5 +14,5 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          repository: anjtoanj/SeleniumFrameworkInJava  # 👈 update this
+          repository: anjtoanj/SeleniumFrameworkInJava
           event-type: run-smoke-tests
