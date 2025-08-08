@@ -1,0 +1,31 @@
+name: Deploy & Trigger QA Tests
+
+on:
+  push:
+    branches:
+      - qa  # Change to your release branch name
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Dev Repo
+        uses: actions/checkout@v3
+
+      - name: Build Application
+        run: |
+          echo "Build your app here (npm install / mvn clean install etc)"
+
+      - name: Deploy to QA Environment
+        run: |
+          echo "Run your deployment scripts here"
+          echo "App deployed to: https://qa.myapp.com"
+
+      - name: Trigger Selenium Smoke Tests in QA Repo
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.TEST_REPO_PAT }}
+          repository: org/selenium-tests  # <--- Replace with your actual test repo
+          event-type: smoke-test-trigger
+          client-payload: '{"env": "qa", "url": "https://qa.myapp.com"}'
