@@ -17,7 +17,6 @@ public abstract class Reporter extends DriverInstance {
     public String testcaseName, testDescription, authors, category, dataFileName, dataFileType, excelFileName,sheetName;
     public static String folderName = "";
 
-
     public synchronized void setNode() {
         ExtentTest child = parentTest.get().createNode(getTestName());
         test.set(child);
