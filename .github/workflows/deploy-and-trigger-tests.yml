@@ -1,41 +1,18 @@
-name: Run Smoke Tests on Dev Push
+name: Trigger Smoke Tests from Dev Repo
 
 on:
   push:
     branches:
-      - pinned  # or the QA branch of the dev repo
+      - pinned  # or 'qa' or your release branch
 
 jobs:
-  smoke-tests:
+  trigger-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Dev Repo
-        uses: actions/checkout@v3
+      - name: Trigger CI in Test Repo
+        uses: peter-evans/repository-dispatch@v2
         with:
-          repository: your-org/dev-repo-name
-          token: ${{ secrets.GITHUB_TOKEN }}
-          path: dev-code
-
-      - name: Checkout Selenium Test Repo
-        uses: actions/checkout@v3
-        with:
-          repository: your-org/SeleniumJavaTestNGAdvancedFramework
-          token: ${{ secrets.GITHUB_TOKEN }}
-          path: test-code
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Install Chrome
-        run: |
-          sudo apt update
-          sudo apt install -y google-chrome-stable
-
-      - name: Build and Run Smoke Tests
-        working-directory: test-code
-        run: |
-          mvn clean test -DsuiteXmlFile=testng-smoke.xml
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          repository: anjtoanj/SeleniumFrameworkInJava  # 👈 update this
+          event-type: run-smoke-tests
