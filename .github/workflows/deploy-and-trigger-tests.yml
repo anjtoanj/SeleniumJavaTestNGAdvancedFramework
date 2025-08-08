@@ -1,27 +1,41 @@
-name: Deploy & Trigger QA Tests
+name: Run Smoke Tests on Dev Push
 
 on:
   push:
     branches:
-      - qa  # Trigger only when code is pushed to 'qa'
+      - main  # or the QA branch of the dev repo
 
 jobs:
-  trigger-tests:
+  smoke-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout Dev Repo
         uses: actions/checkout@v3
-
-      - name: Simulate Build or Deployment
-        run: |
-          echo "Build successful"
-          echo "Code deployed to QA environment: https://qa.example.com"
-
-      - name: Trigger Test Automation Framework
-        uses: peter-evans/repository-dispatch@v2
         with:
-          token: ${{ secrets.TEST_REPO_PAT }}
-          repository: your-org/SeleniumFrameworkInJava
-          event-type: smoke-test-trigger
-          client-payload: '{"baseUrl": "https://qa.example.com"}'
+          repository: your-org/dev-repo-name
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: dev-code
+
+      - name: Checkout Selenium Test Repo
+        uses: actions/checkout@v3
+        with:
+          repository: your-org/SeleniumJavaTestNGAdvancedFramework
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: test-code
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Chrome
+        run: |
+          sudo apt update
+          sudo apt install -y google-chrome-stable
+
+      - name: Build and Run Smoke Tests
+        working-directory: test-code
+        run: |
+          mvn clean test -DsuiteXmlFile=testng-smoke.xml
