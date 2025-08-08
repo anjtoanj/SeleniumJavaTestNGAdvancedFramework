@@ -18,4 +18,12 @@ public abstract class Reporter extends DriverInstance {
     public static String folderName = "";
 
 
+    public synchronized void setNode() {
+        ExtentTest child = parentTest.get().createNode(getTestName());
+        test.set(child);
+    }
+
+    public String getTestName() {
+        return testName.get();
+    }
 }
