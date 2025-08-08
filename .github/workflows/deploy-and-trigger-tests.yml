@@ -3,29 +3,25 @@ name: Deploy & Trigger QA Tests
 on:
   push:
     branches:
-      - qa  # Change to your release branch name
+      - qa  # Trigger only when code is pushed to 'qa'
 
 jobs:
-  build-deploy:
+  trigger-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Dev Repo
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Build Application
+      - name: Simulate Build or Deployment
         run: |
-          echo "Build your app here (npm install / mvn clean install etc)"
+          echo "Build successful"
+          echo "Code deployed to QA environment: https://qa.example.com"
 
-      - name: Deploy to QA Environment
-        run: |
-          echo "Run your deployment scripts here"
-          echo "App deployed to: https://qa.myapp.com"
-
-      - name: Trigger Selenium Smoke Tests in QA Repo
+      - name: Trigger Test Automation Framework
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.TEST_REPO_PAT }}
-          repository: org/selenium-tests  # <--- Replace with your actual test repo
+          repository: your-org/SeleniumFrameworkInJava
           event-type: smoke-test-trigger
-          client-payload: '{"env": "qa", "url": "https://qa.myapp.com"}'
+          client-payload: '{"baseUrl": "https://qa.example.com"}'
