@@ -3,7 +3,7 @@ name: Run Smoke Tests on Dev Push
 on:
   push:
     branches:
-      - main  # or the QA branch of the dev repo
+      - pinned  # or the QA branch of the dev repo
 
 jobs:
   smoke-tests:
